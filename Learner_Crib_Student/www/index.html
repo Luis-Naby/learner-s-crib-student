@@ -7,10 +7,12 @@
     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy"
     content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+
   <script src="components/loader.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/all.min.js"></script>
+  <script src="js/sweetalert.min.js"></script>
   <script src="js/main.js"></script>
 
   <link rel="stylesheet" href="components/loader.css">
@@ -21,7 +23,107 @@
 </head>
 
 <body>
-  This is a template for Onsen UI app.
+
+  <ons-navigator id="main_navigator" page="landing.html"></ons-navigator>
+
+  <ons-template id="landing.html">
+    <ons-page>
+      <div class="landing_page_welcome_screen">
+        <h3> Learner's Crib </h3>
+        <h6> Welcome To Your Learning Solution </h6>
+        <ons-progress-circular indeterminate modifier="material"></ons-progress-circular>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="login.html">
+    <ons-page>
+      <div id="login_register_page">
+        <div class="accounts-form">
+          <form role="form">
+            <h3> Let's Get Back To The Crib </h3>
+            <label> Email Address </label>
+            <input type="email" placeholder="Email Address" id="Login_Email" required>
+            <label> Password </label>
+            <input type="password" placeholder="Password" id="Login_Password" required>
+            <button type="button" onclick="login_user()" id="sign_in_user"> Sign In </button>
+          </form>
+        </div>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="register.html">
+    <ons-page>
+      <div id="login_register_page">
+        <div class="back_button_all">
+          <ons-back-button></ons-back-button>
+        </div>
+        <div class="accounts-form">
+          <form role="form">
+            <h3> Join Up The Crib </h3>
+            <label> Full Name </label>
+            <input type="text" placeholder="Full Name" id="Register_Name" required>
+            <label> User Name </label>
+            <input type="text" placeholder="User Name" id="Register_User" required>
+            <label> Email Address </label>
+            <input type="email" placeholder="Email Address" id="Register_Email" required>
+            <label> Password </label>
+            <input type="password" placeholder="Password" id="Register_Password" required>
+            <button type="button" onclick="register_user()" id="sign_up_user"> Sign In </button>
+          </form>
+        </div>
+      </div>
+
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="classes.html">
+    <ons-page>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="assignments_and_tests.html">
+    <ons-page>
+
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="resource.html">
+    <ons-page>
+      <div class="resource_page">
+        <div class="resource_page_form">
+          <input type="search" id="search_item" placeholder="Search With File Name, Course Code or Course Title"
+            autocomplete="off">
+          <button> <i class="fa fa-search"></i></button>
+        </div>
+        <div class="main_list">
+
+          <div class="main_list_files">
+
+            <div class="main_list_file_container" id="main_list_file_container"></div>
+
+            <button id="load_more_button"> Load More </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="main.html">
+    <ons-page>
+      <ons-tabbar swipeable modifier="material" id="main_page_tabbar">
+        <ons-tab label="Classes" page="classes.html"> <i class="fa fa-home"></i> </ons-tab>
+        <ons-tab label="Assessments" page="assignments_and_tests.html"> <i class="fa fa-sticky-note"></i>
+        </ons-tab>
+        <ons-tab label="Resources" page="resource.html" active> <i class="fa fa-poll"></i> </ons-tab>
+      </ons-tabbar>
+    </ons-page>
+  </ons-template>
+
 </body>
 
 </html>
