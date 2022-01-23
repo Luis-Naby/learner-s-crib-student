@@ -4,8 +4,37 @@ var All_Resources = {}
 
 function start_app() {
     getResources()
-    Navigates = document.getElementById('main_navigator')
-    Navigates.pushPage('login.html')
+    if (localStorage.learners_crib_user_Logged == 'true') {
+        $.ajax({
+            url: main_url + '/confirm_user_existence',
+            data: {
+                User: localStorage.learners_crib_user
+            },
+            method: 'POST',
+            success: function (data) {
+                data = JSON.parse(data)
+                if (data.status == 1) {
+                    to_main()
+                } else {
+                    Navigates = document.getElementById('main_navigator')
+                    Navigates.pushPage('login.html')
+                }
+            },
+            fail: function (data) {
+                console.log(data)
+                Navigates = document.getElementById('main_navigator')
+                Navigates.pushPage('login.html')
+            },
+            error: function (data) {
+                console.log(data)
+                Navigates = document.getElementById('main_navigator')
+                Navigates.pushPage('login.html')
+            }
+        })
+    } else {
+        Navigates = document.getElementById('main_navigator')
+        Navigates.pushPage('login.html')
+    }
 }
 
 function to_register() {
@@ -16,7 +45,7 @@ function to_register() {
 function to_main() {
     Navigates = document.getElementById('main_navigator')
     Navigates.pushPage('main.html').then(function () {
-        for (var r_count = 0; r_count < All_Resources.length; r_count++) {
+        for (var r_count = 0; r_count < 21 && r_count < All_Resources.length; r_count++) {
             var main_data_main = All_Resources[r_count]
             var AddResource = '<div class="main_list_file">' +
                 '<div class="main_list_file_left">' +
@@ -31,9 +60,15 @@ function to_main() {
                 '</div>'
             $('#main_list_file_container').append(AddResource)
         }
+        if (All_Resources.length < 21) {
+            $('#load_more_button').remove()
+        }
 
-        console.log($('ons-tabbar'))
         document.querySelector('ons-tabbar').addEventListener('postchange', function (event) {
+            console.log(event.index)
+        })
+
+        document.querySelector('ons-tabbar').addEventListener('reactive', function (event) {
             console.log(event.index)
         })
     })
